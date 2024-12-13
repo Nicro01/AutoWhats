@@ -2,7 +2,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.12.5-blue?logo=python&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Mac%20%7C%20Linux-lightgrey)
+![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)
 
 ## About AutoWhats
 
