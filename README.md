@@ -37,7 +37,7 @@ AutoWhats is a Python application designed to send WhatsApp messages automatical
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/AutoWhats.git
+   git clone https://github.com/Nicro01/AutoWhats.git
    cd AutoWhats
    ```
 
