@@ -8,7 +8,7 @@ import time
 import pyperclip
 import pyautogui as pg
 
-class Envio:
+class Controller:
     def __init__(self):
         self.envio_ativo = True
         self.pausar_envio = False

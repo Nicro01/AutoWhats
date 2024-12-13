@@ -3,8 +3,9 @@ from tkinter import messagebox, PhotoImage
 import time
 import threading
 import pyautogui as pg
+import webbrowser
 
-from envio import Envio
+from controller import Controller
 
 class App:
     def __init__(self):
@@ -14,7 +15,7 @@ class App:
         self.campo_texto_y = 968 if self.debug else None
         self.excel_entry = None
         self.operador_entry = None
-        self.envio = Envio()
+        self.controller = Controller()
         self.root = tk.CTk()
         self.setup_window()
         self.create_widgets()
@@ -49,7 +50,7 @@ class App:
         if self.debug:
             self.excel_entry.insert(0, "C:/Users/Nicro/Desktop/planilha.xlsx")
         
-        self.excel_button = tk.CTkButton(input_frame, text="Selecionar Excel", command= lambda: self.envio.selecionar_excel(self.excel_entry), )
+        self.excel_button = tk.CTkButton(input_frame, text="Selecionar Excel", command= lambda: self.controller.selecionar_excel(self.excel_entry), )
         self.excel_button.grid(row=0, column=3, padx=10, pady=(10, 0), sticky='nsew')
 
         tk.CTkLabel(input_frame, text="Nome do Operador:").grid(row=1, column=0, padx=10, pady=10, sticky='w')
@@ -65,9 +66,9 @@ class App:
         self.control_frame = tk.CTkFrame(self.root, fg_color="transparent", corner_radius=0)
         self.control_frame.grid(row=3, column=0, pady=10, columnspan=3, rowspan=1)
 
-        tk.CTkButton(self.control_frame, text="Iniciar", command= lambda: self.envio.iniciar_envio(self.operador_entry.get(), self.campo_texto_x, self.campo_texto_y)).grid(row=0, column=0, padx=5)
-        tk.CTkButton(self.control_frame, text="Pausar", command=self.envio.pausar_ou_continuar).grid(row=0, column=1, padx=5)
-        tk.CTkButton(self.control_frame, text="Parar", command=self.envio.parar_envio).grid(row=0, column=2, padx=5)
+        tk.CTkButton(self.control_frame, text="Iniciar", command= lambda: self.controller.iniciar_envio(self.operador_entry.get(), self.campo_texto_x, self.campo_texto_y)).grid(row=0, column=0, padx=5)
+        tk.CTkButton(self.control_frame, text="Pausar", command=self.controller.pausar_ou_continuar).grid(row=0, column=1, padx=5)
+        tk.CTkButton(self.control_frame, text="Parar", command=self.controller.parar_envio).grid(row=0, column=2, padx=5)
         tk.CTkButton(self.control_frame, text="Configurar Posição", command=self.config_window).grid(row=0, column=3, padx=5)
 
     def create_log_frame(self):
@@ -114,12 +115,14 @@ class App:
         
     def atualizar_contador(self, label, window, text_label):
         global contador
-        for contador in range(10, 0, -1):
+        for contador in range(10, -1, -1):
             label.configure(text=str(contador))
-            time.sleep(1)
-            if contador == 1:
+            
+            if contador == 0:
                 for _ in range(18):
                     pg.hotkey("tab")
+                    
+            time.sleep(1)
         
         label.configure(text="Selecione o campo de envio de mensagem")
         text_label.destroy()
